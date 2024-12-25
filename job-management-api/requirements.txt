@@ -1,5 +1,16 @@
-flask==2.2.3
-requests==2.28.1
-numpy==1.23.4
+import subprocess
 
+def write_requirements_to_file(filename='requirements.txt'):
+    # Use pip freeze to get the installed packages
+    result = subprocess.run(['pip', 'freeze'], capture_output=True, text=True)
+    
+    # Check if pip freeze was successful
+    if result.returncode == 0:
+        with open(filename, 'w') as f:
+            f.write(result.stdout)
+        print(f"Requirements written to {filename}")
+    else:
+        print("Failed to run pip freeze")
 
+# Call the function to write to requirements.txt
+write_requirements_to_file()
